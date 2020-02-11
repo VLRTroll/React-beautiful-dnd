@@ -1,28 +1,19 @@
 import React from 'react';
-import Task from '../Task';
-import { Droppable } from 'react-beautiful-dnd';
 
-import { Container, Title, TaskList } from './styles';
+import { Container, Title } from './styles';
+import TaskList from '../TaskList';
+import { Draggable } from 'react-beautiful-dnd';
 
-export default function Column({ id, data }) {
+export default function Column({ id, index, data }) {
   return (
-    <Container>
-      <Title>{data.title}</Title>
+    <Draggable draggableId={id} index={index}>
+      {provided => (
+        <Container ref={provided.innerRef} {...provided.draggableProps}>
+          <Title {...provided.dragHandleProps}>{data.title}</Title>
 
-      <Droppable droppableId={id}>
-        {(provided, snapshot) => (
-          <TaskList
-            ref={provided.innerRef}
-            isDraggingOver={snapshot.isDraggingOver}
-            {...provided.droppableProps}
-          >
-            {data.tasks.map((task, i) => (
-              <Task key={task.id} id={task.id} index={i} data={task} />
-            ))}
-            {provided.placeholder}
-          </TaskList>
-        )}
-      </Droppable>
-    </Container>
+          <TaskList id={id} tasks={data.tasks} />
+        </Container>
+      )}
+    </Draggable>
   );
 }

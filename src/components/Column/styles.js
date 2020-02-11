@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 300px;
@@ -18,16 +18,4 @@ export const Title = styled.h3`
   margin: 10px 5px; /* vertical horizontal */
   text-align: center;
   font-style: italic;
-`;
-
-export const TaskList = styled.div`
-  flex-grow: 1;
-  border-radius: 7px;
-  padding: 8px;
-
-  ${props =>
-    props.isDraggingOver &&
-    css`
-      background: rgba(123, 123, 123, 0.1);
-    `}
 `;
